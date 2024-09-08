@@ -1,0 +1,54 @@
+function gerenciarTarefas(listaDeTarefas, acao) {
+    if (acao === "adicionar") {
+        // Adicionar uma nova tarefa
+        let descricao = prompt("Insira uma descrição para a tarefa:");
+        if (descricao) {
+            listaDeTarefas.push({ descricao: descricao, concluida: false });
+            console.log("Tarefa adicionada com sucesso!");
+        } else {
+            console.log("Descrição da tarefa não pode estar vazia.");
+        }
+    } else if (acao === "remover") {
+        // Remover todas as tarefas concluídas
+        listaDeTarefas = listaDeTarefas.filter(tarefa => !tarefa.concluida);
+        console.log("Tarefas concluídas removidas com sucesso!");
+    } else if (acao === "listar") {
+        // Listar todas as tarefas pendentes
+        let tarefasPendentes = listaDeTarefas.filter(tarefa => !tarefa.concluida);
+        if (tarefasPendentes.length > 0) {
+            console.log("Tarefas Pendentes:");
+            tarefasPendentes.forEach((tarefa, index) => {
+                console.log(`${index + 1}. ${tarefa.descricao}`);
+            });
+        } else {
+            console.log("Não há tarefas pendentes.");
+        }
+    } else {
+        console.log("Ação inválida. Use 'adicionar', 'remover' ou 'listar'.");
+    }
+
+    return listaDeTarefas;
+}
+
+// Exemplo de uso
+let tarefas = [
+    { descricao: "Estudar", concluida: false },
+    { descricao: "Fazer exercícios", concluida: false },
+    { descricao: "Trabalhar", concluida: false },
+];
+
+// Adicionar uma nova tarefa
+tarefas = gerenciarTarefas(tarefas, "adicionar");
+
+// Listar tarefas pendentes
+gerenciarTarefas(tarefas, "listar");
+
+// Marcar algumas tarefas como concluídas para testar a remoção
+tarefas[0].concluida = true;
+tarefas[1].concluida = true;
+
+// Remover tarefas concluídas
+tarefas = gerenciarTarefas(tarefas, "remover");
+
+// Listar tarefas novamente para ver as pendentes restantes
+gerenciarTarefas(tarefas, "listar");
